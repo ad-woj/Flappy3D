@@ -1,0 +1,35 @@
+Microsoft Visual Studio Solution File, Format Version 11.00
+# Visual Studio 2008
+
+Project("{9E545D70-9C39-15F2-96D9-3649D5E6F7E9}") = "Flappy3D", "Assembly-CSharp-firstpass.csproj", "{48797588-3A9D-53F5-D264-E88CC4E9D30C}"
+EndProject
+Project("{9E545D70-9C39-15F2-96D9-3649D5E6F7E9}") = "Flappy3D", "Assembly-CSharp.csproj", "{AF22ED65-3C54-202A-16D1-D82847912862}"
+EndProject
+Project("{9E545D70-9C39-15F2-96D9-3649D5E6F7E9}") = "Flappy3D", "Assembly-CSharp-Editor.csproj", "{F89D95F9-EE73-D3AB-2BA1-748049ACFE3C}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{48797588-3A9D-53F5-D264-E88CC4E9D30C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{48797588-3A9D-53F5-D264-E88CC4E9D30C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{48797588-3A9D-53F5-D264-E88CC4E9D30C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{48797588-3A9D-53F5-D264-E88CC4E9D30C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{AF22ED65-3C54-202A-16D1-D82847912862}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{AF22ED65-3C54-202A-16D1-D82847912862}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{AF22ED65-3C54-202A-16D1-D82847912862}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{AF22ED65-3C54-202A-16D1-D82847912862}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F89D95F9-EE73-D3AB-2BA1-748049ACFE3C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F89D95F9-EE73-D3AB-2BA1-748049ACFE3C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F89D95F9-EE73-D3AB-2BA1-748049ACFE3C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F89D95F9-EE73-D3AB-2BA1-748049ACFE3C}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(MonoDevelopProperties) = preSolution
+		StartupItem = Assembly-CSharp.csproj
+	EndGlobalSection
+EndGlobal
