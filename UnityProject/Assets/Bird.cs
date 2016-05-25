@@ -22,7 +22,7 @@ public class Bird : MonoBehaviour {
     void Start () {
         bird = GameObject.Find("BirdObject");
         collisionDetector = GameObject.FindObjectOfType<CollisionDetector>();
-        speed = 4f;
+        speed = 6.5f;
         lastBounceTime = 0;
         bouncesSum = 0;
         goingUp = false;
