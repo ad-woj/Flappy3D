@@ -21,6 +21,7 @@ namespace UnityStandardAssets.Utility
         private float heightDamping = 0.1f;
 
         private float positionX = 0.0f;
+        private float positionZ = 10.0f;
         private int counter = 0;
 
         // Use this for initialization
@@ -55,15 +56,22 @@ namespace UnityStandardAssets.Utility
             transform.position -= currentRotation * Vector3.forward * distance;
 
             if (counter > 150)
+            {
                 positionX += 0.015f;
+                positionZ += 0.015f;
+            }
             else
                 counter++;
 
-            if (positionX >= 3.5f)
-                positionX = 3.5f;
+            if (positionX >= 6.0f)
+                positionX = 6.0f;
+
+            if (positionZ >= 14.0f)
+                positionZ = 14.0f;
 
             // Set the height of the camera
-            transform.position = new Vector3(target.position.x + positionX, wantedHeight, transform.position.z);
+            //transform.position = new Vector3(target.position.x + positionX, wantedHeight, transform.position.z);
+            transform.position = new Vector3(target.position.x + positionX, wantedHeight, target.position.z - positionZ);
 
             // Always look at the target
             transform.LookAt(target);
