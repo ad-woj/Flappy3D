@@ -23,6 +23,25 @@ public class CollisionDetector : MonoBehaviour {
         return collidedObjects;
     }
 
+    public List<GameObject> checkCollisionsWithPoints(GameObject go)
+    {
+        GameObject[] gameObjects = UnityEngine.Object.FindObjectsOfType<GameObject>();
+        List<GameObject> collidedObjects = new List<GameObject>();
+
+        foreach (GameObject singleGO in gameObjects)
+        {
+            if (singleGO.transform.IsChildOf(GameObject.Find("Points").transform) && singleGO.GetComponent<Collider>() != null)
+            {
+                if (isCollision(go, singleGO))
+                {
+                    collidedObjects.Add(singleGO);
+                }
+            }
+        }
+
+        return collidedObjects;
+    }
+
     // go = game object
     // go1 - for example bird
     // go2 - for example pipe, that bird can collide with

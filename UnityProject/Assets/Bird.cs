@@ -73,12 +73,19 @@ public class Bird : MonoBehaviour {
         // Checking collisions, getting list of objects that collides with bird (usually it is one object
         // but I prepared list in case there are multiple collided objects)
         List<GameObject> collidedObjects = collisionDetector.checkCollsionsWith(GameObject.Find("BirdObject"));
+        List<GameObject> collidedPoints = collisionDetector.checkCollisionsWithPoints(GameObject.Find("BirdObject"));
+
         if (collidedObjects.Count != 0)
         { 
             // TODO: Implement menu with restart game option && lives counter && points counter
-                Debug.Log("Collision!");
-                GameObject.Destroy(bird);
+            Debug.Log("Collision!");
+            GameObject.Destroy(bird);
         };
+        if (collidedPoints.Count != 0)
+        {
+            Debug.Log("Collision with Point!");
+            collidedPoints.ForEach(GameObject.Destroy);
+        }
 
         updateDirectionObjectsPositions(currentFrameStep);
     }
