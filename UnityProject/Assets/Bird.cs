@@ -20,7 +20,8 @@ public class Bird : MonoBehaviour {
 
     // Use this for initialization
     void Start () {
-        bird = GameObject.Find("BirdObject");
+        //bird = GameObject.Find("BirdObject");
+        bird = GameObject.Find("FlappyBirdModel2");
         collisionDetector = GameObject.FindObjectOfType<CollisionDetector>();
         speed = 6.5f;
         lastBounceTime = 0;
@@ -45,14 +46,14 @@ public class Bird : MonoBehaviour {
         if (lastBounceTime > 0) { // Bird is going up after bounce
             goingUp = true;
             dir = handleUpDir.transform.position - transform.localPosition;
-            rotationModifier = 2.5f;
+            //rotationModifier = 2.5f;
             currentFrameStep *= 1.1f;
             lastBounceTime -= Time.deltaTime * 1.2f;
         }
         else { // Bird is falling down
             bouncesSum = 0;
             goingUp = false;
-            rotationModifier = 1f;
+            //rotationModifier = 1f;
             dir = handleDownDir.transform.position - transform.localPosition;
         }
 
@@ -68,12 +69,14 @@ public class Bird : MonoBehaviour {
         }
 
         transform.Translate(dir.normalized * currentFrameStep, Space.World); // Move
-        transform.rotation = Quaternion.Lerp(transform.rotation, targetRotation, 0.02f * rotationModifier); // Rotate
+        //transform.rotation = Quaternion.Lerp(transform.rotation, targetRotation, 0.02f * rotationModifier); // Rotate
 
         // Checking collisions, getting list of objects that collides with bird (usually it is one object
         // but I prepared list in case there are multiple collided objects)
-        List<GameObject> collidedObjects = collisionDetector.checkCollsionsWith(GameObject.Find("BirdObject"));
-        List<GameObject> collidedPoints = collisionDetector.checkCollisionsWithPoints(GameObject.Find("BirdObject"));
+        //List<GameObject> collidedObjects = collisionDetector.checkCollsionsWith(GameObject.Find("BirdObject"));
+        List<GameObject> collidedObjects = collisionDetector.checkCollsionsWith(GameObject.Find("FlappyBirdModel2"));
+        //List<GameObject> collidedPoints = collisionDetector.checkCollisionsWithPoints(GameObject.Find("BirdObject"));
+        List<GameObject> collidedPoints = collisionDetector.checkCollisionsWithPoints(GameObject.Find("FlappyBirdModel2"));
 
         if (collidedObjects.Count != 0)
         { 
