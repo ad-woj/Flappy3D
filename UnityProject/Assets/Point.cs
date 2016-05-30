@@ -37,15 +37,26 @@ public class Point : MonoBehaviour {
         }
         else
             counter++;
-
+        float transfX = 0.0f, transfY = 0, transfZ = 0.0f;
         foreach (GameObject point in points)
         {
             //step = randomInt / 10000.0f;  
+            if( point.tag == "CollectiblePoint" )
+            {
+                transfX = 0.0f;
+                transfZ = transfY = 0;
+            }
+            else if( point.tag == "CollisionObject" )
+            {
+                transfX = transfZ = 0;
+                transfY = 2.5f;
+            }
+
             if (up)
-                point.transform.Translate(-0.5f * step * counter, 2.5f * step * counter, -step * counter);
+                point.transform.Translate(-transfX * step * counter, transfY * step * counter, -step * counter * transfZ);
 
             else
-                point.transform.Translate(0.5f * step * counter, -2.5f * step * counter, step * counter);
+                point.transform.Translate( transfX * step * counter, -transfY * step * counter, step * counter * transfZ );
         }
     }
 }

@@ -1,10 +1,12 @@
 ﻿using UnityEngine;
-using System.Collections;
 using System.Collections.Generic;
-
+using UnityEngine.UI;
 
 
 public class Bird : MonoBehaviour {
+
+    public Text countText;
+    public Text gameOverText;
 
     private const float bounceTime = 1f;
     private GameObject bird;
@@ -15,6 +17,7 @@ public class Bird : MonoBehaviour {
     private CollisionDetector collisionDetector;
     private float lastBounceTime;
     private float bouncesSum;
+    private int pickUpCount;
     bool goingUp;
 
 
@@ -22,7 +25,7 @@ public class Bird : MonoBehaviour {
     void Start () {
         //bird = GameObject.Find("BirdObject");
         bird = GameObject.Find("FlappyBirdModel2");
-        collisionDetector = GameObject.FindObjectOfType<CollisionDetector>();
+        collisionDetector = FindObjectOfType<CollisionDetector>();
         speed = 6.5f;
         lastBounceTime = 0;
         bouncesSum = 0;
@@ -30,12 +33,16 @@ public class Bird : MonoBehaviour {
         handleUpDir = GameObject.Find("Up");
         handleDownDir = GameObject.Find("Down");
         dir = handleDownDir.transform.position - transform.localPosition; // starting direction to bottom handle
+        pickUpCount = 0;
+        SetScoreText();
+        gameOverText.text = "";
     }
 
     // Update is called once per frame
     void Update() {
         float rotationModifier;
         float currentFrameStep = speed * Time.deltaTime;
+        pickUpCount++;
 
         if (Input.GetKeyDown(KeyCode.Space)) {
             lastBounceTime = bounceTime;
@@ -83,14 +90,17 @@ public class Bird : MonoBehaviour {
             // TODO: Implement menu with restart game option && lives counter && points counter
             Debug.Log("Collision!");
             GameObject.Destroy(bird);
+            gameOverText.text = "Game Over!";
         };
         if (collidedPoints.Count != 0)
         {
             Debug.Log("Collision with Point!");
             collidedPoints.ForEach(GameObject.Destroy);
+            pickUpCount += 50;
         }
 
         updateDirectionObjectsPositions(currentFrameStep);
+        SetScoreText();
     }
 
 
@@ -98,5 +108,10 @@ public class Bird : MonoBehaviour {
     {
         handleUpDir.transform.Translate(0,0,dir.normalized.z * currentFrameStep);
         handleDownDir.transform.Translate(0,0, dir.normalized.z * currentFrameStep);
+    }
+
+    public void SetScoreText()
+    {
+        countText.text = "Score: " + pickUpCount.ToString();
     }
 }

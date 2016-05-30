@@ -7,7 +7,7 @@ public class CollisionDetector : MonoBehaviour {
 
     public List<GameObject> checkCollsionsWith(GameObject go)
     {
-        GameObject[] gameObjects = UnityEngine.Object.FindObjectsOfType<GameObject>();
+        GameObject[] gameObjects = FindObjectsOfType<GameObject>();
         List<GameObject> collidedObjects = new List<GameObject>();
 
         foreach (GameObject singleGO in gameObjects){
@@ -25,16 +25,16 @@ public class CollisionDetector : MonoBehaviour {
 
     public List<GameObject> checkCollisionsWithPoints(GameObject go)
     {
-        GameObject[] gameObjects = UnityEngine.Object.FindObjectsOfType<GameObject>();
+        Point[] gameObjects = FindObjectsOfType<Point>();
         List<GameObject> collidedObjects = new List<GameObject>();
 
-        foreach (GameObject singleGO in gameObjects)
+        foreach (var singleGO in gameObjects)
         {
-            if (singleGO.transform.IsChildOf(GameObject.Find("Points").transform) && singleGO.GetComponent<Collider>() != null)
+            if (singleGO.GetComponent<Collider>() != null)
             {
-                if (isCollision(go, singleGO))
+                if (isCollision(go, singleGO.gameObject))
                 {
-                    collidedObjects.Add(singleGO);
+                    collidedObjects.Add(singleGO.gameObject);
                 }
             }
         }
@@ -47,8 +47,8 @@ public class CollisionDetector : MonoBehaviour {
     // go2 - for example pipe, that bird can collide with
     public bool isCollision(GameObject go1, GameObject go2)
     {
-        Renderer go1_component = go1.GetComponent<Renderer>();
-        Renderer go2_component = go2.GetComponent<Renderer>();
+        BoxCollider go1_component = go1.GetComponent<BoxCollider>();
+        BoxCollider go2_component = go2.GetComponent<BoxCollider>();
 
         Vector3 go1_size = new Vector3( go1_component.bounds.size.x, go1_component.bounds.size.y, go2_component.bounds.size.z );
         Vector3 go2_size = new Vector3( go2_component.bounds.size.x, go2_component.bounds.size.y, go1_component.bounds.size.z );
