@@ -8,9 +8,10 @@ public class Bird : MonoBehaviour {
     public Text countText;
     public Text gameOverText;
 
-    private const float bounceTime = 1f;
+    private const float bounceTime = 1.9f;
+    private const float speed = 15f;
     private GameObject bird;
-    private float speed;
+
     private Vector3 dir;
     private GameObject handleUpDir;
     private GameObject handleDownDir;
@@ -26,7 +27,6 @@ public class Bird : MonoBehaviour {
         //bird = GameObject.Find("BirdObject");
         bird = GameObject.Find("FlappyBirdModel2");
         collisionDetector = FindObjectOfType<CollisionDetector>();
-        speed = 6.5f;
         lastBounceTime = 0;
         bouncesSum = 0;
         goingUp = false;
@@ -43,11 +43,13 @@ public class Bird : MonoBehaviour {
         float rotationModifier;
         float currentFrameStep = speed * Time.deltaTime;
         pickUpCount++;
+        Animator birdAnimator = bird.GetComponent<Animator>();
 
         if (Input.GetKeyDown(KeyCode.Space)) {
             lastBounceTime = bounceTime;
             bouncesSum += 1;
             goingUp = true;
+            birdAnimator.Play("Armature|ArmatureAction");
         };
 
         if (lastBounceTime > 0) { // Bird is going up after bounce
@@ -58,6 +60,7 @@ public class Bird : MonoBehaviour {
             lastBounceTime -= Time.deltaTime * 1.2f;
         }
         else { // Bird is falling down
+            birdAnimator.Play("Idle state");
             bouncesSum = 0;
             goingUp = false;
             //rotationModifier = 1f;

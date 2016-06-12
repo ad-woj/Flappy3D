@@ -4,7 +4,8 @@ using System.Collections.Generic;
 
 public class CollisionDetector : MonoBehaviour {
 
-
+    // objectName - name of group of objects which 'go' can collide with
+    // i.e. objectName = "Hindrances"
     public List<GameObject> checkCollisionsWith(string objectName, GameObject go)
     {
         GameObject[] gameObjects = FindObjectsOfType<GameObject>();

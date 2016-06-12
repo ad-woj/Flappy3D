@@ -24,6 +24,13 @@ namespace UnityStandardAssets.Utility
         private float positionZ = 10.0f;
         private int counter = 0;
 
+        private Vector3 cameraPosition;
+
+        private bool targetPositionReached = false;
+
+        private bool sideView = false;
+
+
         // Use this for initialization
         void Start() { }
 
@@ -53,21 +60,43 @@ namespace UnityStandardAssets.Utility
             // Set the position of the camera on the x-z plane to:
             // distance meters behind the target
             transform.position = target.position;
-            transform.position -= currentRotation * Vector3.forward * distance;
+            //transform.position -= currentRotation * Vector3.forward * distance;
 
-            if (counter > 150)
+            if (!targetPositionReached)
             {
-                positionX += 0.015f;
-                positionZ += 0.015f;
+                if (counter > 100)
+                {
+                    positionX += 0.015f;
+                    positionZ += 0.015f;
+                }
+                else
+                    counter++;
+
+                if (positionX >= 6.0f)
+                    positionX = 6.0f;
+
+                if (positionZ >= 14.0f)
+                    positionZ = 14.0f;
+
+                if (positionX >= 6.0f && positionZ >= 14.0f)
+                    targetPositionReached = true; // camera is in target place, end of checking conditions above
             }
-            else
-                counter++;
 
-            if (positionX >= 6.0f)
-                positionX = 6.0f;
-
-            if (positionZ >= 14.0f)
-                positionZ = 14.0f;
+            if (Input.GetKeyDown(KeyCode.V))
+            {
+                if (!sideView)
+                { // Forcing view same as in original Flappy - from side
+                    targetPositionReached = true;
+                    positionX = 70f;
+                    positionZ = 0f;
+                    sideView = true;
+                } else
+                {  // Forcing our standard view
+                    positionX = 6.0f;
+                    positionZ = 14.0f;
+                    sideView = false;
+                }
+            }
 
             // Set the height of the camera
             //transform.position = new Vector3(target.position.x + positionX, wantedHeight, transform.position.z);
