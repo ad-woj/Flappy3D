@@ -14,13 +14,13 @@ sysinfo.txt
 [Ee]xported[Oo]bj/
 .vs/
 UnityProj/*.userprefs
-#/*.csproj
-#/*.pidb
+/*.csproj
+/*.pidb
 /*.suo
-#/*.sln*
+/*.sln*
 /*.user
-#/*.unityproj
-#/*.booproj
+/*.unityproj
+/*.booproj
  
 # ============ #
 # OS generated #
