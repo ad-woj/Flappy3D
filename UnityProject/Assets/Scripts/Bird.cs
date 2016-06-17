@@ -40,7 +40,7 @@ public class Bird : MonoBehaviour {
 
     // Update is called once per frame
     void Update() {
-        float rotationModifier;
+        //float rotationModifier;
         float currentFrameStep = speed * Time.deltaTime;
         pickUpCount++;
         Animator birdAnimator = bird.GetComponent<Animator>();
@@ -94,7 +94,11 @@ public class Bird : MonoBehaviour {
             Debug.Log("Collision!");
             GameObject.Destroy(bird);
             gameOverText.text = "Game Over!";
-        };
+
+
+       
+           
+        }
         if (collidedPoints.Count != 0)
         {
             Debug.Log("Collision with Point!");
