@@ -4,15 +4,15 @@ using System.Collections.Generic;
 
 public class CollisionDetector : MonoBehaviour {
 
-    // objectName - name of group of objects which 'go' can collide with
-    // i.e. objectName = "Hindrances"
-    public List<GameObject> checkCollisionsWith(string objectName, GameObject go)
+    // objectTag - tag of objects which 'go' can collide with
+    // i.e. objectTag = "Pipes"
+    public List<GameObject> checkCollisionsWith(string objectTag, GameObject go)
     {
         GameObject[] gameObjects = FindObjectsOfType<GameObject>();
         List<GameObject> collidedObjects = new List<GameObject>();
 
         foreach (GameObject singleGO in gameObjects){
-            if (singleGO.transform.IsChildOf(GameObject.Find(objectName).transform) && singleGO.GetComponent<Collider>() != null)
+            if( singleGO.tag == objectTag && singleGO.GetComponent<Collider>() != null )
             {
                 if (isCollision(go, singleGO))
                 {

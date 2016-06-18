@@ -84,9 +84,9 @@ public class Bird : MonoBehaviour {
         // Checking collisions, getting list of objects that collides with bird (usually it is one object
         // but I prepared list in case there are multiple collided objects)
         //List<GameObject> collidedObjects = collisionDetector.checkCollsionsWith(GameObject.Find("BirdObject"));
-        List<GameObject> collidedObjects = collisionDetector.checkCollisionsWith( "Hindrances", GameObject.Find("FlappyBirdModel2"));
+        List<GameObject> collidedObjects = collisionDetector.checkCollisionsWith( "Pipes", GameObject.Find("FlappyBirdModel2"));
         //List<GameObject> collidedPoints = collisionDetector.checkCollisionsWithPoints(GameObject.Find("BirdObject"));
-        List<GameObject> collidedPoints = collisionDetector.checkCollisionsWith( "Points", GameObject.Find("FlappyBirdModel2"));
+        List<GameObject> collidedPoints = collisionDetector.checkCollisionsWith( "Point", GameObject.Find("FlappyBirdModel2"));
 
         if (collidedObjects.Count != 0)
         { 

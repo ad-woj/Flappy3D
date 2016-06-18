@@ -15,19 +15,15 @@ public class Obstacle : MonoBehaviour {
 	// Update is called once per frame
 	void Update () {
         Obstacle[] obstacles = FindObjectsOfType<Obstacle>();
-        MeshRenderer ren;
         float dt = Time.deltaTime;
-        Vector3 shift = new Vector3( 0, speed * dt, 0 );
-        foreach( Obstacle obs in obstacles )
+        Vector3 shift = new Vector3( 0, 0, - speed * dt );
+        
+        lifetime -= dt;
+        if( lifetime <= 0 )
         {
-            obs.lifetime -= dt;
-            if( obs.lifetime <= 0 )
-            {
-                ren = obs.GetComponent<MeshRenderer>();
-                if( ren )
-                    ren.enabled = false;
-            }
-            transform.Translate( shift );
+            Destroy( this. );
         }
+        transform.Translate( shift );
+        
 	}
 }
