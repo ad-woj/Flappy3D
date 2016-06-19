@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 
 public class Obstacle : MonoBehaviour {
-
+    
     public float speed;
     private uint difficulty;
     public float lifetime;
@@ -21,7 +21,7 @@ public class Obstacle : MonoBehaviour {
         lifetime -= dt;
         if( lifetime <= 0 )
         {
-            Destroy( this. );
+            Destroy( this.gameObject );
         }
         transform.Translate( shift );
         

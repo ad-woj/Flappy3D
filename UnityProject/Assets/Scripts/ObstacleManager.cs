@@ -36,8 +36,13 @@ public class ObstacleManager : MonoBehaviour {
 	}
 
     void SpawnObstacle() {
+        //choosing random position of the obstacle
 	    int positionY = Random.Range(minPositionY, maxPositionY);
-        currentObject = (GameObject)Instantiate( obstaclePrefabs[0], new Vector3( transform.position.x, positionY, transform.position.z ), Quaternion.identity );
+        // choosing random obtacle
+        int index = Random.Range(0, obstaclePrefabs.Length*4);
+        if( index >= obstaclePrefabs.Length )
+            index = 0;
+        currentObject = (GameObject)Instantiate( obstaclePrefabs[index], new Vector3( transform.position.x, positionY, transform.position.z ), Quaternion.identity );
     }
 
     void SpawnPickUp() {

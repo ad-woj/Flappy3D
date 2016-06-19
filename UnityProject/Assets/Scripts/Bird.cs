@@ -57,7 +57,7 @@ public class Bird : MonoBehaviour {
             dir = handleUpDir.transform.position - transform.localPosition;
             //rotationModifier = 2.5f;
             currentFrameStep *= 1.1f;
-            lastBounceTime -= Time.deltaTime * 1.2f;
+            lastBounceTime -= Time.deltaTime * 3.0f;
         }
         else { // Bird is falling down
             birdAnimator.Play("Idle state");
@@ -74,7 +74,7 @@ public class Bird : MonoBehaviour {
             targetRotation = Quaternion.Euler(targetRotation.eulerAngles.x + (40f - (bouncesSum * 2 % 20) * 4), 0, 0);
             dir = new Vector3(handleUpDir.transform.position.x,
                               handleUpDir.transform.position.y * (0.4f + lastBounceTime * 0.1f + (bouncesSum % 10) * 0.05f),
-                              handleUpDir.transform.position.z)
+                              0)
                               - transform.localPosition;
         }
 
