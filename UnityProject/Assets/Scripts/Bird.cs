@@ -93,11 +93,9 @@ public class Bird : MonoBehaviour {
             // TODO: Implement menu with restart game option && lives counter && points counter
             Debug.Log("Collision!");
             GameObject.Destroy(bird);
-            gameOverText.text = "Game Over!";
+            //gameOverText.text = "Game Over!";
+            UnityEngine.SceneManagement.SceneManager.LoadScene(3);
 
-
-       
-           
         }
         if (collidedPoints.Count != 0)
         {

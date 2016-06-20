@@ -13,10 +13,10 @@ public class GuiManager : MonoBehaviour {
             restartGameController.restartGame();
         }
 
-        if (Input.GetKey(KeyCode.S))
-        {
-            startGameController.startGame();
-        }
+        //if (Input.GetKey(KeyCode.S))
+        //{
+        //    startGameController.startGame();
+        //}
 
     }
 }
