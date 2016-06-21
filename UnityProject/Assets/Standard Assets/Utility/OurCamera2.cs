@@ -62,25 +62,25 @@ namespace UnityStandardAssets.Utility
             transform.position = target.position;
             //transform.position -= currentRotation * Vector3.forward * distance;
 
-            if (!targetPositionReached)
-            {
-                if (counter > 100)
-                {
-                    positionX += 0.015f;
-                    positionZ += 0.015f;
-                }
-                else
-                    counter++;
+            //if (!targetPositionReached)
+            //{
+            //    if (counter > 100)
+            //    {
+            //        positionX += 0.015f;
+            //        positionZ += 0.015f;
+            //    }
+            //    else
+            //        counter++;
 
-                if (positionX >= 6.0f)
-                    positionX = 6.0f;
+            //    if (positionX >= 6.0f)
+            //        positionX = 6.0f;
 
-                if (positionZ >= 14.0f)
-                    positionZ = 14.0f;
+            //    if (positionZ >= 14.0f)
+            //        positionZ = 14.0f;
 
-                if (positionX >= 6.0f && positionZ >= 14.0f)
-                    targetPositionReached = true; // camera is in target place, end of checking conditions above
-            }
+            //    if (positionX >= 6.0f && positionZ >= 14.0f)
+            //        targetPositionReached = true; // camera is in target place, end of checking conditions above
+            //}
 
             if (Input.GetKeyDown(KeyCode.V))
             {

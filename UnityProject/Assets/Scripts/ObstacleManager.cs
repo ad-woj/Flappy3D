@@ -3,7 +3,7 @@ using System.Collections;
 
 public class ObstacleManager : MonoBehaviour {
 
-    public Vector2 spawnPosition;
+    public Vector3 spawnPosition;
     public int maxPositionY;
     public int minPositionY;
     public float spawningSpeed;
@@ -29,6 +29,7 @@ public class ObstacleManager : MonoBehaviour {
             timer = spawningSpeed;
             SpawnObstacle();
         }
+
         if( pickUpTimer <= 0 ) {
             pickUpTimer = spawningSpeed;
             SpawnPickUp();
@@ -37,15 +38,15 @@ public class ObstacleManager : MonoBehaviour {
 
     void SpawnObstacle() {
         //choosing random position of the obstacle
-	    int positionY = Random.Range(minPositionY, maxPositionY);
+	    Vector3 modifier = new Vector3( 0, Random.Range(minPositionY, maxPositionY), 0);
         // choosing random obtacle
-        int index = Random.Range(0, obstaclePrefabs.Length*4);
+        int index = Random.Range(0, obstaclePrefabs.Length*3);
         if( index >= obstaclePrefabs.Length )
             index = 0;
-        currentObject = (GameObject)Instantiate( obstaclePrefabs[index], new Vector3( transform.position.x, positionY, transform.position.z ), Quaternion.identity );
+        currentObject = (GameObject)Instantiate( obstaclePrefabs[index], obstaclePrefabs[index].transform.position + modifier + spawnPosition, Quaternion.identity );
     }
 
     void SpawnPickUp() {
-        currentObject = (GameObject)Instantiate( PickUp, PickUp.transform.position + new Vector3( 0, currentObject.transform.position.y, 0 ), Quaternion.identity );
+        currentObject = (GameObject)Instantiate( PickUp, PickUp.transform.position + spawnPosition + new Vector3( 0, currentObject.transform.position.y, 0 ), Quaternion.identity );
     }
 }

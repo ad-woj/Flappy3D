@@ -14,7 +14,7 @@ public class Obstacle : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-        Obstacle[] obstacles = FindObjectsOfType<Obstacle>();
+
         float dt = Time.deltaTime;
         Vector3 shift = new Vector3( 0, 0, - speed * dt );
         
