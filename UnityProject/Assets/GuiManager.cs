@@ -4,6 +4,7 @@ using System.Collections;
 public class GuiManager : MonoBehaviour {
 
     RestartGameController restartGameController = new RestartGameController();
+    StartGameController startGameController = new StartGameController();
 
     void OnGUI()
     {
@@ -11,5 +12,11 @@ public class GuiManager : MonoBehaviour {
         {
             restartGameController.restartGame();
         }
+
+        //if (Input.GetKey(KeyCode.S))
+        //{
+        //    startGameController.startGame();
+        //}
+
     }
 }

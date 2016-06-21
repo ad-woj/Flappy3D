@@ -82,7 +82,7 @@ namespace UnityStandardAssets.Utility
             //        targetPositionReached = true; // camera is in target place, end of checking conditions above
             //}
 
-            if (Input.GetKeyDown(KeyCode.V))
+            if (Input.GetKeyDown(KeyCode.C))
             {
                 if (!sideView)
                 { // Forcing view same as in original Flappy - from side
