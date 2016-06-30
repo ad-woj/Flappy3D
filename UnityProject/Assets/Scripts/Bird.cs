@@ -7,44 +7,39 @@ public class Bird : MonoBehaviour {
 
     public Text countText;
     public Text gameOverText;
+    public float speed = 15f;
+    public float bounceTime = 1.9f;
+    public float upDelta = 0.01f;
+    public float downDelta = -0.01f;
+    public float maxHeight = 100;
+    public float minHeight = -50;
 
-    private const float bounceTime = 1.9f;
-    private const float speed = 15f;
     private GameObject bird;
 
     private Vector3 dir;
-    private GameObject handleUpDir;
-    private GameObject handleDownDir;
+
     private CollisionDetector collisionDetector;
     private float lastBounceTime;
     private float bouncesSum;
     private int pickUpCount;
-    private bool gameRunning;
     bool goingUp;
 
 
     // Use this for initialization
     void Start () {
-        //bird = GameObject.Find("BirdObject");
         bird = GameObject.Find("FlappyBirdModel2");
         collisionDetector = FindObjectOfType<CollisionDetector>();
         lastBounceTime = 0;
         bouncesSum = 0;
         goingUp = false;
-        handleUpDir = GameObject.Find("Up");
-        handleDownDir = GameObject.Find("Down");
-        dir = handleDownDir.transform.position - transform.localPosition; // starting direction to bottom handle
+
         pickUpCount = 0;
         SetScoreText();
         gameOverText.text = "";
-        gameRunning = true;
     }
 
     // Update is called once per frame
     void Update() {
-        
-        if( !gameRunning )
-            return;
         float currentFrameStep = speed * Time.deltaTime;
         pickUpCount++;
         Animator birdAnimator = bird.GetComponent<Animator>();
@@ -58,8 +53,16 @@ public class Bird : MonoBehaviour {
 
         if (lastBounceTime > 0) { // Bird is going up after bounce
             goingUp = true;
-            dir = handleUpDir.transform.position - transform.localPosition;
-            //rotationModifier = 2.5f;
+
+            if (bird.transform.position.y + upDelta >= maxHeight || bird.transform.position.y + downDelta <= minHeight)
+            {
+                dir = new Vector3(0, 0, 0);
+            } else
+            {
+                dir = new Vector3(0, upDelta, 0);
+            }
+                                
+
             currentFrameStep *= 1.1f;
             lastBounceTime -= Time.deltaTime * 3.0f;
         }
@@ -67,57 +70,73 @@ public class Bird : MonoBehaviour {
             birdAnimator.Play("Idle state");
             bouncesSum = 0;
             goingUp = false;
-            //rotationModifier = 1f;
-            dir = handleDownDir.transform.position - transform.localPosition;
+
+            if (bird.transform.position.y + downDelta < minHeight)
+            {
+                dir = new Vector3(0, 0, 0);
+            }
+            else
+            {
+
+                dir = new Vector3(0, downDelta, 0);
+            }
+
+            dir = new Vector3(0, downDelta, 0);
         }
 
         Quaternion targetRotation = Quaternion.LookRotation(dir);
 
         if (goingUp)
         {
-            targetRotation = Quaternion.Euler(targetRotation.eulerAngles.x + (40f - (bouncesSum * 2 % 20) * 4), 0, 0);
-            dir = new Vector3(handleUpDir.transform.position.x,
-                              handleUpDir.transform.position.y * (0.4f + lastBounceTime * 0.1f + (bouncesSum % 10) * 0.05f),
-                              0)
-                              - transform.localPosition;
+            if (bird.transform.position.y + upDelta >= maxHeight)
+            {
+                dir = new Vector3(0, 0, 0);
+            }
+            else
+            {
+                dir = new Vector3(0, upDelta, 0);
+            }
         }
 
         transform.Translate(dir.normalized * currentFrameStep, Space.World); // Move
-        //transform.rotation = Quaternion.Lerp(transform.rotation, targetRotation, 0.02f * rotationModifier); // Rotate
+                                                                             //transform.rotation = Quaternion.Lerp(transform.rotation, targetRotation, 0.02f * rotationModifier); // Rotate
 
         // Checking collisions, getting list of objects that collides with bird (usually it is one object
         // but I prepared list in case there are multiple collided objects)
         //List<GameObject> collidedObjects = collisionDetector.checkCollsionsWith(GameObject.Find("BirdObject"));
-        List<GameObject> collidedObjects = collisionDetector.checkCollisionsWith( "Pipes", bird );
-        List<GameObject> collidedPoints = collisionDetector.checkCollisionsWith( "CollectiblePoint", bird );
-        List<GameObject> collidedObjects2 = collisionDetector.checkCollisionsWith( "AngryBird", bird );
 
+        GameObject birdObject = GameObject.Find("FlappyBirdModel2");
 
-        if (collidedObjects.Count != 0 || collidedObjects2.Count != 0)
-        { 
-            // TODO: Implement menu with restart game option && lives counter && points counter
-            Debug.Log("Collision!");
-            gameRunning = false;
-            UnityEngine.SceneManagement.SceneManager.LoadScene(3);
-
-        }
-        if (collidedPoints.Count != 0)
+        if (birdObject != null)
         {
-            Debug.Log("Collision with Point!");
-            collidedPoints.ForEach(GameObject.Destroy);
-            pickUpCount += 50;
+            List<GameObject> collidedObjects = collisionDetector.checkCollisionsWith("Pipes", birdObject);
+            //List<GameObject> collidedPoints = collisionDetector.checkCollisionsWithPoints(GameObject.Find("BirdObject"));
+            List<GameObject> collidedPoints = collisionDetector.checkCollisionsWith("CollectiblePoint", birdObject);
+
+            if (collidedObjects.Count != 0)
+            {
+                // TODO: Implement menu with restart game option && lives counter && points counter
+                Debug.Log("Collision!");
+                GameObject.Destroy(bird);
+                //gameOverText.text = "Game Over!";
+                UnityEngine.SceneManagement.SceneManager.LoadScene(3);
+
+            }
+            if (collidedPoints.Count != 0)
+            {
+                Debug.Log("Collision with Point!");
+                collidedPoints.ForEach(GameObject.Destroy);
+                pickUpCount += 50;
+            }
+
+            SetScoreText();
+        } else
+        {
+            return;
         }
-
-        updateDirectionObjectsPositions(currentFrameStep);
-        SetScoreText();
+       
     }
 
-
-    private void updateDirectionObjectsPositions(float currentFrameStep)
-    {
-        handleUpDir.transform.Translate(0,0,dir.normalized.z * currentFrameStep);
-        handleDownDir.transform.Translate(0,0, dir.normalized.z * currentFrameStep);
-    }
 
     public void SetScoreText()
     {
