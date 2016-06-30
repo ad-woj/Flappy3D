@@ -19,6 +19,7 @@ public class Bird : MonoBehaviour {
     private float lastBounceTime;
     private float bouncesSum;
     private int pickUpCount;
+    private bool gameRunning;
     bool goingUp;
 
 
@@ -36,11 +37,14 @@ public class Bird : MonoBehaviour {
         pickUpCount = 0;
         SetScoreText();
         gameOverText.text = "";
+        gameRunning = true;
     }
 
     // Update is called once per frame
     void Update() {
-        //float rotationModifier;
+        
+        if( !gameRunning )
+            return;
         float currentFrameStep = speed * Time.deltaTime;
         pickUpCount++;
         Animator birdAnimator = bird.GetComponent<Animator>();
@@ -84,16 +88,16 @@ public class Bird : MonoBehaviour {
         // Checking collisions, getting list of objects that collides with bird (usually it is one object
         // but I prepared list in case there are multiple collided objects)
         //List<GameObject> collidedObjects = collisionDetector.checkCollsionsWith(GameObject.Find("BirdObject"));
-        List<GameObject> collidedObjects = collisionDetector.checkCollisionsWith( "Pipes", GameObject.Find("FlappyBirdModel2"));
-        //List<GameObject> collidedPoints = collisionDetector.checkCollisionsWithPoints(GameObject.Find("BirdObject"));
-        List<GameObject> collidedPoints = collisionDetector.checkCollisionsWith( "Point", GameObject.Find("FlappyBirdModel2"));
+        List<GameObject> collidedObjects = collisionDetector.checkCollisionsWith( "Pipes", bird );
+        List<GameObject> collidedPoints = collisionDetector.checkCollisionsWith( "CollectiblePoint", bird );
+        List<GameObject> collidedObjects2 = collisionDetector.checkCollisionsWith( "AngryBird", bird );
 
-        if (collidedObjects.Count != 0)
+
+        if (collidedObjects.Count != 0 || collidedObjects2.Count != 0)
         { 
             // TODO: Implement menu with restart game option && lives counter && points counter
             Debug.Log("Collision!");
-            GameObject.Destroy(bird);
-            //gameOverText.text = "Game Over!";
+            gameRunning = false;
             UnityEngine.SceneManagement.SceneManager.LoadScene(3);
 
         }
