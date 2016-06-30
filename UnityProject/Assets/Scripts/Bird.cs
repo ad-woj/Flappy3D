@@ -35,7 +35,9 @@ public class Bird : MonoBehaviour {
 
         pickUpCount = 0;
         SetScoreText();
-        gameOverText.text = "";
+
+        if (gameOverText != null)
+            gameOverText.text = "";
     }
 
     // Update is called once per frame
@@ -107,7 +109,7 @@ public class Bird : MonoBehaviour {
 
         GameObject birdObject = GameObject.Find("FlappyBirdModel2");
 
-        if (birdObject != null)
+        if (birdObject != null && collisionDetector != null)
         {
             List<GameObject> collidedObjects = collisionDetector.checkCollisionsWith("Pipes", birdObject);
             //List<GameObject> collidedPoints = collisionDetector.checkCollisionsWithPoints(GameObject.Find("BirdObject"));
@@ -140,6 +142,7 @@ public class Bird : MonoBehaviour {
 
     public void SetScoreText()
     {
-        countText.text = "Score: " + pickUpCount.ToString();
+        if (countText != null)
+            countText.text = "Score: " + pickUpCount.ToString();
     }
 }
