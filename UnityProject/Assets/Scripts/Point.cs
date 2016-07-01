@@ -29,5 +29,6 @@ public class Point : MonoBehaviour {
         else
             transform.Translate(0, -step * Time.deltaTime, 0);
        
+       //transform.Rotate( 0, 0, 0 );
     }
 }

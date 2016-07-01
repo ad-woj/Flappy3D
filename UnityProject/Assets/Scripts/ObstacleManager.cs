@@ -21,11 +21,11 @@ public class ObstacleManager : MonoBehaviour {
         float tmp = spawnPosition.z;
         Obstacle pipe = obstaclePrefabs[0].GetComponent<Obstacle>();
         float speed = pipe != null ? pipe.speed : 7.0f;
-        for( spawnPosition /= 2; spawnPosition.z < tmp; spawnPosition.z += speed * spawningSpeed )
+        for( spawnPosition /= 3; spawnPosition.z < tmp; spawnPosition.z += speed * spawningSpeed )
         {          
             Debug.Log( spawnPosition.z );
-                Vector3 modifier = new Vector3( 0, Random.Range(minPositionY, maxPositionY), 0);
-                currentObject = (GameObject)Instantiate( obstaclePrefabs[0], obstaclePrefabs[0].transform.position + modifier + spawnPosition, Quaternion.identity );
+            Vector3 modifier = new Vector3( 0, Random.Range(minPositionY, maxPositionY), 0);
+            currentObject = (GameObject)Instantiate( obstaclePrefabs[0], obstaclePrefabs[0].transform.position + modifier + spawnPosition, Quaternion.identity );
         }
         spawnPosition.z = tmp;
         //SpawnObstacle();
